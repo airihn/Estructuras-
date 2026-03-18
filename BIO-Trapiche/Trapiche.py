@@ -7,9 +7,9 @@ class NodoEstacion:
         self.coordenadas = coordenadas
         self.estado_carga = False
         self.siguiente = None
-        self.anterior = None # Para listas circulares dobles
+        self.anterior = None
 
-class ListaCircularSencilla:
+class ListaCircularsencilla:
     """Implementación para el Robot AGV (Recolección Infinita)."""
     def __init__(self):
         self.cabeza = None
@@ -35,9 +35,9 @@ class ListaCircularSencilla:
         count = 0
         total_nodos = self._contar_nodos()
         
-        print(f"--- Iniciando Ciclo de Robot AGV ({ciclos} vueltas) ---")
+        print(f"Iniciando Ciclo de Robot AGV ({ciclos} vueltas)")
         while count < (ciclos * total_nodos):
-            # Simular detección de carga aleatoria para el ejemplo
+            # Simular detección de carga aleatoria
             if count % 2 == 0:
                 actual.estado_carga = True
             
@@ -85,31 +85,31 @@ class ListaCircularDoble:
         actual = self.cabeza
         print("--- Iniciando Inspección de Dron (Ruta Circular Doble) ---")
         
-        # Paso 1: Avanzar
+        # avanzar
         print(f"Dron avanzando a: {actual.nombre}")
         actual = actual.siguiente
         print(f"Dron avanzando a: {actual.nombre}")
         
-        # Paso 2: Simular anomalía y retroceder
+        # Simular anomalía y retroceder
         print(f"  ! [ANOMALÍA DETECTADA] en {actual.nombre}. Re-inspeccionando punto anterior...")
         actual = actual.anterior
         print(f"Dron retrocedió a: {actual.nombre} para captura de imagen detallada.")
         
-        # Paso 3: Continuar flujo normal
+        # Continuar flujo normal
         actual = actual.siguiente.siguiente
         print(f"Dron retomando ruta hacia: {actual.nombre}")
         print("--- Inspección de Dron Finalizada ---\n")
 
-# --- Pruebas del Sistema ---
+# Pruebas del Sistema
 if __name__ == "__main__":
-    # 1. Configurar AGV (Circular Sencilla)
+    # configurar AGV (Circular Sencilla)
     trapiche_agv = ListaCircularSencilla()
     trapiche_agv.agregar_estacion("Molienda", (0, 0))
     trapiche_agv.agregar_estacion("Evaporación", (10, 5))
     trapiche_agv.agregar_estacion("Moldeo", (20, 0))
     trapiche_agv.simular_agv(ciclos=1)
 
-    # 2. Configurar Dron (Circular Doble)
+    # Configurar dron (Circular Doble)
     dron_sumapaz = ListaCircularDoble()
     dron_sumapaz.agregar_punto_control("Sector Norte - Cañaduzal", (100, 200))
     dron_sumapaz.agregar_punto_control("Sector Este - Mantenimiento", (150, 250))
